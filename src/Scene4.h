@@ -65,4 +65,8 @@ class Scene4 : public itg::ofxState<SharedData>{
     float i1X, i1Y, i2X, i2Y, i3X, i3Y, i4X, i4Y;
     
     Boolean instDone;
+    
+    ofxOscSender sender;
+    int kosuri;
+    int tartle;
 };

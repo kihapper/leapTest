@@ -71,4 +71,8 @@ class Scene3 : public itg::ofxState<SharedData>{
     Boolean instDone;
     
     string getName();
+    
+    ofxOscSender sender;
+    int kosuri;
+    int fish;
 };

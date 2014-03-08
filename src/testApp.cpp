@@ -95,7 +95,7 @@ void testApp::update(){
         
         else if (m.getAddress() == "/leap/kosuri"){
             stateMachine.getSharedData().kosuri = m.getArgAsInt32(0);
-            printf("kosuri:%d", m.getArgAsInt32(0));
+//            printf("kosuri:%d", m.getArgAsInt32(0));
         }
 	}
 }

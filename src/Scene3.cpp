@@ -84,6 +84,9 @@ void Scene3::setup(){
     
 	mouseX = 0;
 	mouseY = 0;
+    
+    sender.setup(SENDIP, SENDPORT);
+    kosuri = 0;
 }
 
 void Scene3::stateEnter(){
@@ -97,6 +100,10 @@ void Scene3::stateExit(){
 }
 
 void Scene3::update(){
+    if(ofGetElapsedTimef() < 1.5f){
+        kosuri = getSharedData().kosuri;
+//        printf("kosuri:%d\n",kosuri);
+    }
     
 //    printf("SharedData x0:%d, y0:%d, scene:%d\n", getSharedData().palmPosX[0], getSharedData().palmPosY[0],getSharedData().scene);
     palmPosX[0] = getSharedData().palmPosX[0];
@@ -118,6 +125,20 @@ void Scene3::update(){
     //
     getSharedData().vidGrabber.update();
     fluid.update();
+    if(getSharedData().gesture == 1){
+        fish++;
+        printf("fish:%d", fish);
+    }
+    
+    if(getSharedData().kosuri > kosuri + 150){
+        if(fish > 15){
+            ofxOscMessage sendReset;
+            sendReset.setAddress("/leap/sendReset");
+            sendReset.addIntArg(5);
+            sender.sendMessage(sendReset);
+            printf("sendReset\n");
+        }
+    }
     
 }
 

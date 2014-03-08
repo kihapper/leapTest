@@ -85,10 +85,13 @@ void Scene4::setup(){
     
     //
     //initialize parameters
-    fogDensity = 5.0f;
+    fogDensity = 4.0f;
     
 	mouseX = 0;
 	mouseY = 0;
+    
+    sender.setup(SENDIP, SENDPORT);
+    kosuri = 0;
 }
 
 void Scene4::stateEnter(){
@@ -102,6 +105,11 @@ void Scene4::stateExit(){
 }
 
 void Scene4::update(){
+    
+    if(ofGetElapsedTimef() < 1.5f){
+        kosuri = getSharedData().kosuri;
+        //        printf("kosuri:%d\n",kosuri);
+    }
     
 //    printf("SharedData x0:%d, y0:%d, scene:%d\n", getSharedData().fingerPosX[0], getSharedData().fingerPosY[0],getSharedData().scene);
     fingerPosX[0] = getSharedData().fingerPosX[0];
@@ -123,6 +131,21 @@ void Scene4::update(){
     //
     getSharedData().vidGrabber.update();
     fluid.update();
+    
+    if(getSharedData().gesture == 2){
+        tartle++;
+        printf("tartle:%d", tartle);
+    }
+    
+    if(getSharedData().kosuri > kosuri + 150){
+        if(tartle > 15){
+            ofxOscMessage sendReset;
+            sendReset.setAddress("/leap/sendReset");
+            sendReset.addIntArg(5);
+            sender.sendMessage(sendReset);
+            printf("sendReset\n");
+        }
+    }
 }
 
 void Scene4::draw(){
@@ -140,9 +163,9 @@ void Scene4::draw(){
     //    testImage[hoge].draw(mouseX, mouseY, testImage[0].getWidth(), testImage[0].getHeight());
     //    ofDrawBitmapString("Scene4 framerate:" + ofToString(ofGetFrameRate()), 30, ofGetHeight() - 30);
     
-    cat.drawString("つめのあいだにも", i1X, i1Y-300);
+    cat.drawString("ゆびのあいだにも", i1X, i1Y-300);
     cat.drawString("バイキンがいっぱい！", i2X, i2Y-250);
-    cat.drawString("ねこのポーズで", i3X, i3Y);
+    cat.drawString("カメのポーズで", i3X, i3Y);
     cat.drawString("あらってみよう！", i4X, i4Y+50);
     
 }
