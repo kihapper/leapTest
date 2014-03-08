@@ -11,8 +11,12 @@
 #include "ofxState.h"
 #include "SharedData.h"
 #include "ofxTrueTypeFontUC.h"
+#include "ofxOsc.h"
 
 #endif /* defined(__leapTest__Scene1__) */
+
+#define SENDIP "localhost"
+#define SENDPORT 12346
 
 //手元のカメラ
 class Scene1 : public itg::ofxState<SharedData>{
@@ -46,4 +50,10 @@ class Scene1 : public itg::ofxState<SharedData>{
     float i1X, i1Y, i2X, i2Y, i3X, i3Y;
     
     Boolean setHand;
+    Boolean pushed;
+    
+    int checkCounter;
+    
+    ofxOscSender sender;
+
 };

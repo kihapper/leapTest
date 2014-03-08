@@ -15,6 +15,9 @@
 #include "ofxTrueTypeFontUC.h"
 #endif /* defined(__leapTest__Scene4__) */
 
+#define SENDIP "localhost"
+#define SENDPORT 12346
+
 
 //カメ
 class Scene4 : public itg::ofxState<SharedData>{
@@ -36,6 +39,8 @@ class Scene4 : public itg::ofxState<SharedData>{
     //指先のディスプレイ座標
     float fingerPosX[15];
     float fingerPosY[15];
+    
+    float palmPos[5];
     
     //流体のパラメータ
     ofxFluid fluid;

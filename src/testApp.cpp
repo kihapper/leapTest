@@ -54,11 +54,13 @@ void testApp::update(){
         //fingerPos from OSC
 		if(m.getAddress() == "/leap/fingerPosition"){
 			// both the arguments are int32's
-			mouseX = m.getArgAsInt32(0);
+//            for(int i=0; i<m.getNumArgs();i++){
+            mouseX = m.getArgAsInt32(0);
             mouseY = m.getArgAsInt32(1);
-            stateMachine.getSharedData().fingerPosX[0] = mouseX;
-            stateMachine.getSharedData().fingerPosY[0] = mouseY;
-//            printf("fingerX:%d fingerY:%d\n",stateMachine.getSharedData().fingerPosX[0],stateMachine.getSharedData().fingerPosY[0]);
+            stateMachine.getSharedData().palmPosX[0] = mouseX;
+            stateMachine.getSharedData().palmPosY[0] = mouseY;
+//            }
+            printf("palmX:%d palmY:%d\n",stateMachine.getSharedData().fingerPosX[0],stateMachine.getSharedData().fingerPosY[0]);
 		}
         
 		//Scene from OSC
@@ -84,6 +86,12 @@ void testApp::update(){
         else if(m.getAddress() == "/leap/pushed"){
             stateMachine.getSharedData().pushed = m.getArgAsInt32(0);
 //            printf("pushed:%d", m.getArgAsInt32(0));
+        }
+        
+        //setHand(scene 1) flag from OSC
+        else if(m.getAddress() == "/leap/setHand"){
+            stateMachine.getSharedData().setHand = m.getArgAsInt32(0);
+            //            printf("pushed:%d", m.getArgAsInt32(0));
         }
         
         else if (m.getAddress() == "/leap/kosuri"){

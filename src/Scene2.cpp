@@ -104,11 +104,11 @@ void Scene2::stateExit(){
 void Scene2::update(){
     //人がいなくなったら、0に戻る処理も必要
     printf("SharedData x0:%d, y0:%d, scene:%d\n", getSharedData().fingerPosX[0], getSharedData().fingerPosY[0],getSharedData().scene);
-    fingerPosX[0] = getSharedData().fingerPosX[0];
-    fingerPosY[0] = getSharedData().fingerPosY[0];
+    palmPosX[0] = getSharedData().palmPosX[0];
+    palmPosY[0] = getSharedData().palmPosY[0];
 
     // Adding temporal Force
-    ofPoint m = ofPoint(fingerPosX[0], fingerPosY[0]);
+    ofPoint m = ofPoint(palmPosX[0], palmPosY[0]);
 //    ofPoint m = ofPoint(mouseX, mouseY);
     ofPoint d = (m - oldM)*10.0;
     oldM = m;
@@ -117,7 +117,7 @@ void Scene2::update(){
     //紫
     //    fluid.addTemporalForce(m, d, ofFloatColor(100,70,255), fogDensity);
     //青
-    fluid.addTemporalForce(m, d, ofFloatColor(10,70,255)*0.1, fogDensity);
+    fluid.addTemporalForce(m, d, ofFloatColor(10,70,255), fogDensity);
     
     //  Update
     getSharedData().vidGrabber.update();
@@ -136,7 +136,7 @@ void Scene2::draw(){
     }else{
         hoge=0;
     }
-    testImage[hoge].draw(fingerPosY[0], fingerPosY[0], testImage[0].getWidth(), testImage[0].getHeight());
+    testImage[hoge].draw(getSharedData().palmPosX[0], getSharedData().palmPosY[0], testImage[0].getWidth(), testImage[0].getHeight());
     ofDisableAlphaBlending();
     
     if(setGesture){

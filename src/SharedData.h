@@ -28,5 +28,6 @@ class SharedData{
     
     Boolean onHuman;
     Boolean pushed;
+    Boolean setHand;
     
 };

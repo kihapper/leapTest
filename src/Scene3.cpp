@@ -98,12 +98,12 @@ void Scene3::stateExit(){
 
 void Scene3::update(){
     
-    printf("SharedData x0:%d, y0:%d, scene:%d\n", getSharedData().fingerPosX[0], getSharedData().fingerPosY[0],getSharedData().scene);
-    fingerPosX[0] = getSharedData().fingerPosX[0];
-    fingerPosY[0] = getSharedData().fingerPosY[0];
+    printf("SharedData x0:%d, y0:%d, scene:%d\n", getSharedData().palmPosX[0], getSharedData().palmPosY[0],getSharedData().scene);
+    palmPosX[0] = getSharedData().palmPosX[0];
+    palmPosY[0] = getSharedData().palmPosY[0];
     
     // Adding temporal Force
-    ofPoint m = ofPoint(fingerPosX[0], fingerPosY[0]);
+    ofPoint m = ofPoint(palmPosX[0], palmPosY[0]);
     //    ofPoint m = ofPoint(mouseX, mouseY);
     ofPoint d = (m - oldM)*10.0;
     oldM = m;

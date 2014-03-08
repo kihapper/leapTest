@@ -55,12 +55,16 @@ void Scene1::setup() {
     
     //手のフラグ
     setHand = false;
+    sender.setup(SENDIP, SENDPORT);
+
 }
 
 void Scene1::stateEnter(){
 	getSharedData().vidGrabber.setDeviceID(0);
 	getSharedData().vidGrabber.initGrabber(camWidth,camHeight);
-    }
+    setHand = false;
+    ofResetElapsedTimeCounter();
+}
 
 void Scene1::stateExit(){
     getSharedData().vidGrabber.close();
@@ -74,11 +78,26 @@ void Scene1::update() {
 void Scene1::draw() {
     // camera
     getSharedData().vidGrabber.draw(camWidth, 0, -camWidth, camHeight);
+    if(getSharedData().setHand){
+        setHand = true;
+    }
     if(setHand == false){
         iFont.drawString("手をだしてみよう！", i1X, i1Y-300);
     }else{
         iFont.drawString("よごれている手を", i2X, i2Y-300);
         iFont.drawString("ジェルであらおう！", i3X, i3Y-250);
+        if(getSharedData().pushed){
+            checkCounter++;
+            if(checkCounter<15){
+                ofxOscMessage sendReset;
+                sendReset.setAddress("/leap/sendReset");
+                sendReset.addIntArg(2);
+                sender.sendMessage(sendReset);
+                printf("sendReset");
+                checkCounter = 0;
+            }
+        }
+
     }
     ofDrawBitmapString("Scene1 framerate:" + ofToString(ofGetFrameRate()), 30, ofGetHeight() - 30);
 }

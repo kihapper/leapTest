@@ -68,7 +68,7 @@ void Scene0::stateEnter(){
     soundPlayed = false;
     nextChecker = 3600.0f*3;
     onHuman = false;
-    testCounter = 0;
+    checkCounter = 0;
 }
 
 void Scene0::stateExit(){
@@ -78,18 +78,18 @@ void Scene0::stateExit(){
 
 
 void Scene0::update() {
-    printf("%f\n", ofGetElapsedTimef());
+//    printf("%f\n", ofGetElapsedTimef());
     getSharedData().vidGrabber.update();
     if(getSharedData().onHuman == true){
         onHuman = true;
         
     }
     if(onHuman){
-        testCounter++;
-        if(testCounter < 10){
+        checkCounter++;
+        if(checkCounter < 10){
             ofResetElapsedTimeCounter();
         }
-        if(ofGetElapsedTimef() > 5.0f){
+        if(ofGetElapsedTimef() > 3.0f){
             ofxOscMessage sendReset;
             sendReset.setAddress("/leap/sendReset");
             sendReset.addIntArg(1);

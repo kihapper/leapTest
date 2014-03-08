@@ -14,6 +14,9 @@
 #include "ofxOsc.h"
 #include "ofxTrueTypeFontUC.h"
 
+#define SENDIP "localhost"
+#define SENDPORT 12346
+
 #define PALMDIST 120
 #define PORT 12345
 #define NUM_MSG_STRINGS 20
@@ -41,6 +44,9 @@ class Scene3 : public itg::ofxState<SharedData>{
     //指先のディスプレイ座標
     float fingerPosX[15];
     float fingerPosY[15];
+    
+    float palmPosX[5];
+    float palmPosY[5];
     
     //流体のパラメータ
     ofxFluid fluid;
