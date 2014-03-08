@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18A71C9718CB1A5000412322 /* Bacteria.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 18A71C9518CB1A5000412322 /* Bacteria.cpp */; };
+		18A71C9A18CB2C4E00412322 /* BubbleAnimation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 18A71C9818CB2C4E00412322 /* BubbleAnimation.cpp */; };
 		BBAB23CB13894F3D00AA2426 /* GLUT.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
 		DB19EAE718BBB28B00DE7F88 /* ofxFluid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB19EA3B18BBB28600DE7F88 /* ofxFluid.cpp */; };
 		DB19EAF618BBB28B00DE7F88 /* ofxFXObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB19EAD918BBB28B00DE7F88 /* ofxFXObject.cpp */; };
@@ -86,6 +88,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		18A71C9518CB1A5000412322 /* Bacteria.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Bacteria.cpp; sourceTree = "<group>"; };
+		18A71C9618CB1A5000412322 /* Bacteria.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bacteria.h; sourceTree = "<group>"; };
+		18A71C9818CB2C4E00412322 /* BubbleAnimation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BubbleAnimation.cpp; sourceTree = "<group>"; };
+		18A71C9918CB2C4E00412322 /* BubbleAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BubbleAnimation.h; sourceTree = "<group>"; };
 		BBAB23BE13894E4700AA2426 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../libs/glut/lib/osx/GLUT.framework; sourceTree = "<group>"; };
 		DB19EA3B18BBB28600DE7F88 /* ofxFluid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxFluid.cpp; sourceTree = "<group>"; };
 		DB19EA3C18BBB28600DE7F88 /* ofxFluid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxFluid.h; sourceTree = "<group>"; };
@@ -558,6 +564,10 @@
 				DB47A9CB18BA385200F4FE96 /* Scene4.cpp */,
 				DB8E929F18C8AA4E00CD763B /* Scene5.h */,
 				DB8E929E18C8AA4E00CD763B /* Scene5.cpp */,
+				18A71C9618CB1A5000412322 /* Bacteria.h */,
+				18A71C9518CB1A5000412322 /* Bacteria.cpp */,
+				18A71C9918CB2C4E00412322 /* BubbleAnimation.h */,
+				18A71C9818CB2C4E00412322 /* BubbleAnimation.cpp */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -664,6 +674,7 @@
 				DBE5DAAA18BF69C500F10A50 /* OscReceivedElements.cpp in Sources */,
 				DBE5DAA418BF69C500F10A50 /* NetworkingUtils.cpp in Sources */,
 				DBE5DAB018BF69C500F10A50 /* ofxOscSender.cpp in Sources */,
+				18A71C9A18CB2C4E00412322 /* BubbleAnimation.cpp in Sources */,
 				DBE5DAA918BF69C500F10A50 /* OscPrintReceivedElements.cpp in Sources */,
 				DBE5DAA518BF69C500F10A50 /* UdpSocket.cpp in Sources */,
 				DBE5DAA818BF69C500F10A50 /* OscOutboundPacketStream.cpp in Sources */,
@@ -680,6 +691,7 @@
 				DBE5DAA318BF69C500F10A50 /* IpEndpointName.cpp in Sources */,
 				DBE5DAAE18BF69C500F10A50 /* ofxOscParameterSync.cpp in Sources */,
 				DB8E92A018C8AA4E00CD763B /* Scene5.cpp in Sources */,
+				18A71C9718CB1A5000412322 /* Bacteria.cpp in Sources */,
 				DBE5DAA618BF69C500F10A50 /* NetworkingUtilsWin.cpp in Sources */,
 				E4B69E210A3A1BDC003C02F2 /* testApp.cpp in Sources */,
 				DBE5DAA718BF69C500F10A50 /* UdpSocketWin.cpp in Sources */,

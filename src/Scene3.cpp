@@ -37,7 +37,7 @@ void Scene3::setup(){
     i4X = ofGetWidth() / 2 - tx4 / 2;
     i4Y = ofGetHeight() / 2 +  ty4 / 2;
 
-    
+    /*
     // Initial Allocation
     //
     fluid.allocate(ofGetWidth(), ofGetHeight(), 0.5);
@@ -59,7 +59,9 @@ void Scene3::setup(){
         fingerPosX[i] = 0;
         fingerPosY[i] = 0;
     }
+     */
     
+    /*
     //使えるカメラのリスト化
     vector<ofVideoDevice> devices = vidGrabber.listDevices();
     for(int i = 0; i < devices.size(); i++){
@@ -77,22 +79,41 @@ void Scene3::setup(){
     
     getSharedData().vidGrabber.setDesiredFrameRate(24);
     getSharedData().vidGrabber.setVerbose(true);
-    
+    */
+     
     //
     //initialize parameters
+    
+    /*
     fogDensity = 3.0f;
     
 	mouseX = 0;
 	mouseY = 0;
+    */
     
     sender.setup(SENDIP, SENDPORT);
     kosuri = 0;
+    
+    //バクテリア
+    bacteria[0].reset();
+    bacteria[1].reset();
+    
+    //水
+    water.loadImage("image/water.png");
+
 }
 
 void Scene3::stateEnter(){
-    getSharedData().vidGrabber.setDeviceID(0);
-	getSharedData().vidGrabber.setDesiredFrameRate(60);
-	getSharedData().vidGrabber.initGrabber(camWidth,camHeight);
+    if (getSharedData().vidGrabber.listDevices().size() > 1) {
+        
+        getSharedData().vidGrabber.setDeviceID(1);
+        getSharedData().vidGrabber.initGrabber(getSharedData().camWidth, getSharedData().camHeight);
+        
+        
+    } else {
+        getSharedData().vidGrabber.setDeviceID(0);
+        getSharedData().vidGrabber.initGrabber(getSharedData().camWidth, getSharedData().camHeight);
+    }
 }
 
 void Scene3::stateExit(){
@@ -104,6 +125,8 @@ void Scene3::update(){
         kosuri = getSharedData().kosuri;
 //        printf("kosuri:%d\n",kosuri);
     }
+    
+    /*
     
 //    printf("SharedData x0:%d, y0:%d, scene:%d\n", getSharedData().palmPosX[0], getSharedData().palmPosY[0],getSharedData().scene);
     palmPosX[0] = getSharedData().palmPosX[0];
@@ -139,14 +162,34 @@ void Scene3::update(){
             printf("sendReset\n");
         }
     }
+    */
+    
+    
+    //バクテリアupdate
+    bacteria[0].update(true);
+    bacteria[1].update(true);
     
 }
 
 void Scene3::draw(){
+    //ofEnableAlphaBlending();
+    getSharedData().vidGrabber.draw(ofGetWidth() - getSharedData().camPos.x,
+                                    getSharedData().camPos.y,
+                                    -getSharedData().camWidth * getSharedData().camScale,
+                                    getSharedData().camHeight * getSharedData().camScale);
+    
+    //ばい菌
+    bacteria[0].draw(getSharedData().palmPosX[0], getSharedData().palmPosY[0]);
+    bacteria[1].draw(getSharedData().palmPosX[1], getSharedData().palmPosY[1]);
+    
+    //水
+    ofSetColor(255);
     ofEnableAlphaBlending();
-    getSharedData().vidGrabber.draw(camWidth, 0, -camWidth, camHeight);
-    fluid.draw();
+    water.draw(0, 0, ofGetWidth(), water.height * ofGetWidth() / water.width );
     ofDisableAlphaBlending();
+    
+    //fluid.draw();
+    //ofDisableAlphaBlending();
     
     inst.drawString("おやゆびのあいだにも", i1X, i1Y-300);
     inst.drawString("バイキンがいっぱい！", i2X, i2Y-250);
@@ -164,11 +207,6 @@ void Scene3::keyPressed  (int key){
             }
             break;
             
-        case 'o':
-            vidGrabber.update();
-            camWidth = ofGetWidth();
-            camHeight = ofGetHeight();
-            break;
     }
 
 }
@@ -183,8 +221,8 @@ void Scene3::mouseReleased(int x, int y, int button){
 
 //--------------------------------------------------------------
 void Scene3::mouseMoved(int x, int y){
-    mouseX = x;
-    mouseY = y;
+    //mouseX = x;
+    //mouseY = y;
     //    printf("mouseX:%d", mouseX);
 }
 
@@ -193,8 +231,7 @@ void Scene3::mouseDragged(int x, int y, int button) {
 }
 
 void Scene3::windowResized(int w, int h){
-    camWidth 		= ofGetWidth();	// try to grab at this size.
-	camHeight 		= ofGetHeight();
+
 }
 
 string Scene3::getName(){

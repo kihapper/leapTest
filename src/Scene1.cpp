@@ -33,10 +33,11 @@ void Scene1::setup() {
     i3X = ofGetWidth() / 2 - tx3 / 2;
     i3Y = ofGetHeight() / 2 +  ty3 / 2;
     
+    /*
     camWidth 		= ofGetWidth();	// try to grab at this size.
 	camHeight 		= ofGetHeight();
     
-	vector<ofVideoDevice> devices = vidGrabber.listDevices();
+     vector<ofVideoDevice> devices = vidGrabber.listDevices();
     for(int i = 0; i < devices.size(); i++){
 		cout << devices[i].id << ": " << devices[i].deviceName;
         if( devices[i].bAvailable ){
@@ -49,19 +50,38 @@ void Scene1::setup() {
     //ウェブカメラ
 	getSharedData().vidGrabber.setDesiredFrameRate(24);
     getSharedData().vidGrabber.setVerbose(true);
-
+    */
+     
     //人の判定
     onHuman = false;
     
     //手のフラグ
     setHand = false;
     sender.setup(SENDIP, SENDPORT);
+    
+    
+    //バクテリア
+    bacteria[0].reset();
+    bacteria[1].reset();
+    
+    //水
+    water.loadImage("image/water.png");
 
 }
 
 void Scene1::stateEnter(){
-	getSharedData().vidGrabber.setDeviceID(0);
-	getSharedData().vidGrabber.initGrabber(camWidth,camHeight);
+//	
+    if (getSharedData().vidGrabber.listDevices().size() > 1 ){
+        
+        getSharedData().vidGrabber.setDeviceID(1);
+        getSharedData().vidGrabber.initGrabber(getSharedData().camWidth, getSharedData().camHeight);
+        
+        
+    } else {
+        getSharedData().vidGrabber.setDeviceID(0);
+        getSharedData().vidGrabber.initGrabber(getSharedData().camWidth, getSharedData().camHeight);
+    }
+    
     setHand = false;
     ofResetElapsedTimeCounter();
 }
@@ -73,11 +93,33 @@ void Scene1::stateExit(){
 
 void Scene1::update() {
     getSharedData().vidGrabber.update();
+    
+    //バクテリアupdate
+    bacteria[0].update(true);
+    bacteria[1].update(true);
+    
 }
 
 void Scene1::draw() {
     // camera
-    getSharedData().vidGrabber.draw(camWidth, 0, -camWidth, camHeight);
+    getSharedData().vidGrabber.draw(ofGetWidth() - getSharedData().camPos.x,
+                                    getSharedData().camPos.y,
+                                    -getSharedData().camWidth * getSharedData().camScale,
+                                    getSharedData().camHeight * getSharedData().camScale);
+    
+    
+    //ばい菌
+    bacteria[0].draw(getSharedData().palmPosX[0], getSharedData().palmPosY[0]);
+    bacteria[1].draw(getSharedData().palmPosX[1], getSharedData().palmPosY[1]);
+    
+    
+    //水
+    ofSetColor(255);
+    ofEnableAlphaBlending();
+    water.draw(0, 0, ofGetWidth(), water.height * ofGetWidth() / water.width );
+    ofDisableAlphaBlending();
+    
+    
     if(getSharedData().setHand){
         setHand = true;
     }
@@ -98,6 +140,10 @@ void Scene1::draw() {
 //            }
         }
     }
+    
+    
+    
+    
     ofSetColor(255);
     ofDrawBitmapString("Scene1 framerate:" + ofToString(ofGetFrameRate()), 30, ofGetHeight() - 30);
 }
@@ -129,8 +175,6 @@ void Scene1::mouseReleased(int x, int y, int button){
 }
 
 void Scene1::windowResized(int w, int h){
-    camWidth 		= ofGetWidth();	// try to grab at this size.
-	camHeight 		= ofGetHeight();
     
 }
 

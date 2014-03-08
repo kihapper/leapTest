@@ -34,6 +34,7 @@ public:
     
     //OSC
     ofxOscReceiver receiver;
+    ofxOscSender sender;
     
     int fingerPosX[25];
     int fingerPosY[25];

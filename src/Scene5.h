@@ -10,9 +10,11 @@
 #include <iostream>
 #include "ofxState.h"
 #include "SharedData.h"
-#include "ofxFluid.h"
+//#include "ofxFluid.h"
 #include "ofxOsc.h"
 #include "ofxTrueTypeFontUC.h"
+
+#include "Bacteria.h"
 
 #define PORT 12345
 #define NUM_MSG_STRINGS 20
@@ -39,6 +41,7 @@ class Scene5 : public itg::ofxState<SharedData>{
     void mouseReleased(int x, int y, int button);
     void windowResized(int w, int h);
     
+    /*
     //指先のディスプレイ座標
     float fingerPosX[15];
     float fingerPosY[15];
@@ -52,11 +55,11 @@ class Scene5 : public itg::ofxState<SharedData>{
     
     //流体のテスト用
     int     mouseX, mouseY;
-    
+    */
     //ウェブカム映像のハンドリング
-    ofVideoGrabber vidGrabber;
-    int camWidth;
-    int camHeight;
+    //ofVideoGrabber vidGrabber;
+    //int camWidth;
+    //int camHeight;
     
     float i1X, i1Y, i2X, i2Y, i3X, i3Y, i4X, i4Y;
     
@@ -66,4 +69,10 @@ class Scene5 : public itg::ofxState<SharedData>{
     ofxOscSender sender;
     
     string getName();
+    
+    //バクテリア
+    Bacteria bacteria[2];
+    
+    //水
+    ofImage water;
 };

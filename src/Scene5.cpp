@@ -35,7 +35,8 @@ void Scene5::setup(){
     float ty4 = clearWord.stringHeight("みんなにもおしえよう！");
     i4X = ofGetWidth() / 2 - tx4 / 2;
     i4Y = ofGetHeight() / 2 +  ty4 / 2;
-
+    
+    /*
     // Initial Allocation
     fluid.allocate(ofGetWidth(), ofGetHeight(), 0.5);
     
@@ -49,7 +50,9 @@ void Scene5::setup(){
     
     // Adding constant forces
     ofSetWindowShape(ofGetWidth(), ofGetHeight());
+    */
     
+    /*
     //使えるカメラのリスト化
     vector<ofVideoDevice> devices = vidGrabber.listDevices();
     for(int i = 0; i < devices.size(); i++){
@@ -64,25 +67,33 @@ void Scene5::setup(){
     //ビデオの設定
     camWidth 		= ofGetWidth();	// try to grab at this size.
 	camHeight 		= ofGetHeight();
+    */
     
-    getSharedData().vidGrabber.setDesiredFrameRate(24);
-    getSharedData().vidGrabber.setVerbose(true);
+    //getSharedData().vidGrabber.setDesiredFrameRate(24);
+    //getSharedData().vidGrabber.setVerbose(true);
     
     //
     //initialize parameters
-    fogDensity = 5.0f;
+    /*fogDensity = 5.0f;
     
 	mouseX = 0;
-	mouseY = 0;
+	mouseY = 0;*/
     
     //OSC
     sender.setup(SENDIP, SENDPORT);
 }
 
 void Scene5::stateEnter(){
-    getSharedData().vidGrabber.setDeviceID(0);
-	getSharedData().vidGrabber.setDesiredFrameRate(60);
-	getSharedData().vidGrabber.initGrabber(camWidth,camHeight);
+//    if (getSharedData().vidGrabber.listDevices().size() > 1) {
+//        
+//        getSharedData().vidGrabber.setDeviceID(1);
+//        getSharedData().vidGrabber.initGrabber(getSharedData().camWidth, getSharedData().camHeight);
+//        
+//        
+//    } else {
+        getSharedData().vidGrabber.setDeviceID(0);
+        getSharedData().vidGrabber.initGrabber(getSharedData().camWidth, getSharedData().camHeight);
+//    }
     
     ofResetElapsedTimeCounter();
 }
@@ -105,7 +116,10 @@ void Scene5::update(){
 }
 
 void Scene5::draw(){
-    getSharedData().vidGrabber.draw(camWidth, 0, -camWidth, camHeight);
+    getSharedData().vidGrabber.draw(ofGetWidth() - getSharedData().camPos.x,
+                                    getSharedData().camPos.y,
+                                    -getSharedData().camWidth * getSharedData().camScale,
+                                    getSharedData().camHeight * getSharedData().camScale);
     
         clearWord.drawString("OK!", i1X, i1Y-300);
         clearWord.drawString("きれいになったね！", i2X, i2Y-250);
@@ -115,11 +129,6 @@ void Scene5::draw(){
 
 void Scene5::keyPressed  (int key){
     switch(key) {
-        case 'r':
-            vidGrabber.update();
-            camWidth = ofGetWidth();
-            camHeight = ofGetHeight();
-            break;
             
         case 'm':
             if(nextView){
@@ -140,8 +149,8 @@ void Scene5::mouseReleased(int x, int y, int button){
 
 //--------------------------------------------------------------
 void Scene5::mouseMoved(int x, int y){
-    mouseX = x;
-    mouseY = y;
+    //mouseX = x;
+    //mouseY = y;
     //    printf("mouseX:%d", mouseX);
 }
 
@@ -150,8 +159,6 @@ void Scene5::mouseDragged(int x, int y, int button) {
 }
 
 void Scene5::windowResized(int w, int h){
-    camWidth = ofGetWidth();	// try to grab at this size.
-	camHeight = ofGetHeight();
     
     float tx1 = clearWord.stringWidth("OK!");
     float ty1 = clearWord.stringHeight("OK!");

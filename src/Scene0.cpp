@@ -9,11 +9,12 @@
 #include "Scene0.h"
 
 void Scene0::setup() {
+    
     ofSetFrameRate(24);
     ofSetVerticalSync(true);
     
-    camWidth 		= ofGetWidth();	// try to grab at this size.
-	camHeight 		= ofGetHeight();
+    //camWidth 		= ofGetWidth();	// try to grab at this size.
+	//camHeight 		= ofGetHeight();
     
     //    //フォント
     title.loadFont("MTLmr3m.ttf", 36);
@@ -40,6 +41,7 @@ void Scene0::setup() {
     subTitleX2 = ofGetWidth() / 2 - tx3 / 2;
     subTitleY2 = ofGetHeight() / 2 +  ty3 / 2;
     
+    /*
 	vector<ofVideoDevice> devices = vidGrabber.listDevices();
     for(int i = 0; i < devices.size(); i++){
 		cout << devices[i].id << ": " << devices[i].deviceName;
@@ -49,10 +51,11 @@ void Scene0::setup() {
             cout << " - unavailable " << endl;
         }
 	}
+    */
     
     //ウェブカメラ
-	getSharedData().vidGrabber.setDesiredFrameRate(60);
-    getSharedData().vidGrabber.setVerbose(true);
+	//getSharedData().vidGrabber.setDesiredFrameRate(60);
+    //getSharedData().vidGrabber.setVerbose(true);
     
     //人の判定
     
@@ -65,8 +68,12 @@ void Scene0::setup() {
 }
 
 void Scene0::stateEnter(){
-	getSharedData().vidGrabber.setDeviceID(0);
-	getSharedData().vidGrabber.initGrabber(camWidth,camHeight);
+    
+    getSharedData().vidGrabber.setDeviceID(0);
+    getSharedData().vidGrabber.initGrabber(getSharedData().camWidth, getSharedData().camHeight);
+    
+    //getSharedData().vidGrabber.initGrabber(getSharedData().camWidth, getSharedData().camHeight);
+    
     soundPlayed = false;
     nextChecker = 3600.0f*3;
     onHuman = false;
@@ -110,9 +117,14 @@ void Scene0::update() {
 
 void Scene0::draw() {
     // camera
-    getSharedData().vidGrabber.draw(camWidth, 0, -camWidth, camHeight);//debug
+    getSharedData().vidGrabber.draw(ofGetWidth() - getSharedData().camPos.x,
+                                    getSharedData().camPos.y,
+                                    -getSharedData().camWidth * getSharedData().camScale,
+                                    getSharedData().camHeight * getSharedData().camScale);
+    
+    
     if(onHuman){//debug
-        backImage.draw(0, 0, camWidth, camWidth/5*7);
+        backImage.draw(0, 0, ofGetWidth(), backImage.height * ofGetWidth() / backImage.width);
 //        ofSetColor(0);
         title.drawString("てあらいかがみ", titleX, titleY-60);
         subTitle.drawString("どうぶつといっしょに", subTitleX1, subTitleY1);
@@ -141,10 +153,7 @@ void Scene0::keyPressed(int key){
             soundPlayed = true;
         }
     }
-    if(key == 'r'){
-        camWidth = ofGetWidth();	// try to grab at this size.
-        camHeight = ofGetHeight();
-    }
+    
 }
 
 void Scene0::mouseMoved(int x, int y ){
@@ -164,9 +173,6 @@ void Scene0::mouseReleased(int x, int y, int button){
 }
 
 void Scene0::windowResized(int w, int h){
-    camWidth 		= ofGetWidth();	// try to grab at this size.
-	camHeight 		= ofGetHeight();
-    
     float tx1 = title.stringWidth("てあらいかがみ");
     float ty1 = title.stringHeight("てあらいかがみ");
     titleX = ofGetWidth() / 2 - tx1 / 2;

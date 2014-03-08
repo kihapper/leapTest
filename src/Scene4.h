@@ -10,9 +10,12 @@
 #include <iostream>
 #include "ofxState.h"
 #include "SharedData.h"
-#include "ofxFluid.h"
+//#include "ofxFluid.h"
 #include "ofxOsc.h"
 #include "ofxTrueTypeFontUC.h"
+
+#include "Bacteria.h"
+
 #endif /* defined(__leapTest__Scene4__) */
 
 #define SENDIP "localhost"
@@ -35,7 +38,7 @@ class Scene4 : public itg::ofxState<SharedData>{
     void mouseReleased(int x, int y, int button);
     void windowResized(int w, int h);
 
-    
+    /*
     //指先のディスプレイ座標
     float fingerPosX[15];
     float fingerPosY[15];
@@ -53,11 +56,12 @@ class Scene4 : public itg::ofxState<SharedData>{
     
     //流体のテスト用
     int     mouseX, mouseY;
+    */
     
     //ウェブカム映像のハンドリング
-    ofVideoGrabber vidGrabber;
-    int camWidth;
-    int camHeight;
+    //ofVideoGrabber vidGrabber;
+    //int camWidth;
+    //int camHeight;
     
     string getName();
     
@@ -69,4 +73,10 @@ class Scene4 : public itg::ofxState<SharedData>{
     ofxOscSender sender;
     int kosuri;
     int tartle;
+    
+    //バクテリア
+    Bacteria bacteria[2];
+    
+    //水
+    ofImage water;
 };

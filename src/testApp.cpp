@@ -17,6 +17,7 @@ void testApp::setup(){
     stateMachine.addState<Scene5>();
     
     ofSetFrameRate(24);
+    ofSetBackgroundColor(0);
     
     stateMachine.changeState("Scene0");
     stageState = 0;
@@ -40,6 +41,27 @@ void testApp::setup(){
     stateMachine.getSharedData().BGMSound.play();
     stateMachine.getSharedData().BGMSound.setVolume(0.8);
     stateMachine.getSharedData().elapsedTime = elapsedTime;
+    
+    //webカメラ
+    int camW = 1920;
+    int camH = 1080;
+    
+    stateMachine.getSharedData().camWidth = camW;
+    stateMachine.getSharedData().camHeight = camH;
+    
+    int w = ofGetWidth();
+    int h = ofGetHeight();
+    
+    //高さにフィットさせる
+    stateMachine.getSharedData().camScale = (float)h/(float)camH;
+    stateMachine.getSharedData().camPos.set( ((float)w-(float)camW*stateMachine.getSharedData().camScale)/2, 0 );
+    
+    stateMachine.getSharedData().vidGrabber.setDesiredFrameRate(60);
+    stateMachine.getSharedData().vidGrabber.setVerbose(true);
+    
+//    stateMachine.getSharedData().vidGrabber.setDeviceID(0);
+//	stateMachine.getSharedData().vidGrabber.initGrabber(camW, camH);
+
 }
 
 //--------------------------------------------------------------
@@ -58,6 +80,10 @@ void testApp::update(){
             mouseY = m.getArgAsInt32(1);
             stateMachine.getSharedData().palmPosX[0] = mouseX;
             stateMachine.getSharedData().palmPosY[0] = mouseY;
+            
+//            stateMachine.getSharedData().palmPosX[1] = m.getArgAsInt32(2);
+//            stateMachine.getSharedData().palmPosY[1] = m.getArgAsInt32(3);
+            
 //            }
 //            printf("palmX:%d palmY:%d\n",stateMachine.getSharedData().palmPosX[0],stateMachine.getSharedData().palmPosY[0]);
 		}
@@ -156,6 +182,14 @@ void testApp::keyPressed(int key){
             onHuman = true;
         }
     }
+    
+    switch (key) {
+        case '1':
+            break;
+            
+        default:
+            break;
+    }
 }
 
 //--------------------------------------------------------------
@@ -180,6 +214,9 @@ void testApp::mouseReleased(int x, int y, int button){
 
 //--------------------------------------------------------------
 void testApp::windowResized(int w, int h){
+    //幅をフィットさせてセンタリング
+    stateMachine.getSharedData().camScale = (float)h/(float)stateMachine.getSharedData().camHeight;
+    stateMachine.getSharedData().camPos.set( ((float)w-(float)stateMachine.getSharedData().camWidth * stateMachine.getSharedData().camScale)/2, 0 );
 }
 
 //--------------------------------------------------------------

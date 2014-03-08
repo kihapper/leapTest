@@ -23,6 +23,11 @@ class SharedData{
     int kosuri;
     
     ofVideoGrabber vidGrabber;
+    int camWidth, camHeight;
+    float camScale;
+    ofVec2f camPos;
+    
+    
     ofSoundPlayer BGMSound;
     
     float elapsedTime;

@@ -14,6 +14,8 @@
 #include "ofxOsc.h"
 #include "ofxTrueTypeFontUC.h"
 
+#include "Bacteria.h"
+
 #define SENDIP "localhost"
 #define SENDPORT 12346
 
@@ -59,9 +61,9 @@ class Scene2 : public itg::ofxState<SharedData>{
     int mouseX, mouseY;
     
     //ウェブカム映像のハンドリング
-    ofVideoGrabber vidGrabber;
-    int camWidth;
-    int camHeight;
+    //ofVideoGrabber vidGrabber;
+    //int camWidth;
+    //int camHeight;
         
     //testGIF
     ofImage testImage[5];
@@ -81,5 +83,12 @@ class Scene2 : public itg::ofxState<SharedData>{
     
     ofxOscSender sender;
     int kosuri;
+    
+    //バクテリア
+    Bacteria bacteria[2];
+    
+    //水
+    ofImage water;
+
 
 };

@@ -10,9 +10,11 @@
 #include <iostream>
 #include "ofxState.h"
 #include "SharedData.h"
-#include "ofxFluid.h"
+//#include "ofxFluid.h"
 #include "ofxOsc.h"
 #include "ofxTrueTypeFontUC.h"
+
+#include "Bacteria.h"
 
 #define SENDIP "localhost"
 #define SENDPORT 12346
@@ -41,6 +43,7 @@ class Scene3 : public itg::ofxState<SharedData>{
     void mouseReleased(int x, int y, int button);
     void windowResized(int w, int h);
     
+    /*
     //指先のディスプレイ座標
     float fingerPosX[15];
     float fingerPosY[15];
@@ -59,10 +62,12 @@ class Scene3 : public itg::ofxState<SharedData>{
     int     mouseX, mouseY;
     
     //ウェブカム映像のハンドリング
-    ofVideoGrabber vidGrabber;
-    int camWidth;
-    int camHeight;
+    //ofVideoGrabber vidGrabber;
+    //int camWidth;
+    //int camHeight;
     
+     */
+     
     //OSC
     ofxTrueTypeFontUC  inst;
     float i1X, i1Y, i2X, i2Y, i3X, i3Y, i4X, i4Y;
@@ -75,4 +80,10 @@ class Scene3 : public itg::ofxState<SharedData>{
     ofxOscSender sender;
     int kosuri;
     int fish;
+    
+    //バクテリア
+    Bacteria bacteria[2];
+    
+    //水
+    ofImage water;
 };

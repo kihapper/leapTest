@@ -37,11 +37,13 @@ class Scene0 : public itg::ofxState<SharedData>{
     void windowResized(int w, int h);
 
     
+    /*
     ofVideoGrabber vidGrabber;
     
     int camWidth;
     int camHeight;
-    
+    */
+     
     string getName();
     
     Boolean onHuman;

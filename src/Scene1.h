@@ -13,6 +13,8 @@
 #include "ofxTrueTypeFontUC.h"
 #include "ofxOsc.h"
 
+#include "Bacteria.h"
+
 #endif /* defined(__leapTest__Scene1__) */
 
 #define SENDIP "localhost"
@@ -35,11 +37,11 @@ class Scene1 : public itg::ofxState<SharedData>{
     void windowResized(int w, int h);
 
     
-    ofVideoGrabber vidGrabber;
-    ofQTKitGrabber QTTest;
+    //ofVideoGrabber vidGrabber;
+    //ofQTKitGrabber QTTest;
     
-    int camWidth;
-    int camHeight;
+    //int camWidth;
+    //int camHeight;
     
     string getName();
     
@@ -55,5 +57,12 @@ class Scene1 : public itg::ofxState<SharedData>{
     int checkCounter;
     
     ofxOscSender sender;
+    
+    
+    //バクテリア
+    Bacteria bacteria[2];
+    
+    //水
+    ofImage water;
 
 };
