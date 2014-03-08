@@ -87,18 +87,18 @@ void Scene1::draw() {
         iFont.drawString("よごれている手を", i2X, i2Y-300);
         iFont.drawString("ジェルであらおう！", i3X, i3Y-250);
         if(getSharedData().pushed){
-            checkCounter++;
-            if(checkCounter<15){
+//            checkCounter++;
+//            if(checkCounter<60){
                 ofxOscMessage sendReset;
                 sendReset.setAddress("/leap/sendReset");
                 sendReset.addIntArg(2);
                 sender.sendMessage(sendReset);
                 printf("sendReset");
                 checkCounter = 0;
-            }
+//            }
         }
-
     }
+    ofSetColor(255);
     ofDrawBitmapString("Scene1 framerate:" + ofToString(ofGetFrameRate()), 30, ofGetHeight() - 30);
 }
 

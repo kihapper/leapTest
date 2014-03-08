@@ -59,6 +59,8 @@ class Scene0 : public itg::ofxState<SharedData>{
     ofxOscSender sender;
     float nextChecker;
     
+    ofImage backImage;
+    
     int checkCounter;
 
 };

@@ -60,6 +60,11 @@ void Scene4::setup(){
         fingerPosY[i] = 0;
     }
     
+    for(int i=0;i<5;i++){
+        palmPosX[i] = 0;
+        palmPosY[i] = 0;
+    }
+    
     //使えるカメラのリスト化
     vector<ofVideoDevice> devices = vidGrabber.listDevices();
     for(int i = 0; i < devices.size(); i++){
@@ -98,7 +103,7 @@ void Scene4::stateExit(){
 
 void Scene4::update(){
     
-    printf("SharedData x0:%d, y0:%d, scene:%d\n", getSharedData().fingerPosX[0], getSharedData().fingerPosY[0],getSharedData().scene);
+//    printf("SharedData x0:%d, y0:%d, scene:%d\n", getSharedData().fingerPosX[0], getSharedData().fingerPosY[0],getSharedData().scene);
     fingerPosX[0] = getSharedData().fingerPosX[0];
     fingerPosY[0] = getSharedData().fingerPosY[0];
     

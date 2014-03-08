@@ -60,6 +60,8 @@ void Scene0::setup() {
     sceneChangeSound.setVolume(0.8);
     
     sender.setup(SENDIP, SENDPORT);
+    
+    backImage.loadImage("image/scene0.png");
 }
 
 void Scene0::stateEnter(){
@@ -69,6 +71,7 @@ void Scene0::stateEnter(){
     nextChecker = 3600.0f*3;
     onHuman = false;
     checkCounter = 0;
+    getSharedData().BGMSound.setVolume(0.0);
 }
 
 void Scene0::stateExit(){
@@ -82,7 +85,7 @@ void Scene0::update() {
     getSharedData().vidGrabber.update();
     if(getSharedData().onHuman == true){
         onHuman = true;
-        
+        getSharedData().BGMSound.setVolume(0.8);
     }
     if(onHuman){
         checkCounter++;
@@ -107,13 +110,14 @@ void Scene0::update() {
 
 void Scene0::draw() {
     // camera
-    getSharedData().vidGrabber.draw(camWidth, 0, -camWidth, camHeight);
-    if(onHuman){
-        ofSetColor(255);
+    getSharedData().vidGrabber.draw(camWidth, 0, -camWidth, camHeight);//debug
+    if(onHuman){//debug
+        backImage.draw(0, 0, camWidth, camWidth/5*7);
+//        ofSetColor(0);
         title.drawString("てあらいかがみ", titleX, titleY-60);
         subTitle.drawString("どうぶつといっしょに", subTitleX1, subTitleY1);
         subTitle.drawString("手をあらおう！", subTitleX2, subTitleY2+40);
-    }
+    }//debug
     ofDrawBitmapString("scene0 framerate:" + ofToString(ofGetFrameRate()), 30, ofGetHeight() - 30);
 }
 
@@ -136,6 +140,10 @@ void Scene0::keyPressed(int key){
         }else{
             soundPlayed = true;
         }
+    }
+    if(key == 'r'){
+        camWidth = ofGetWidth();	// try to grab at this size.
+        camHeight = ofGetHeight();
     }
 }
 

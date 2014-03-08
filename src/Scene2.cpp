@@ -83,16 +83,21 @@ void Scene2::setup(){
     getSharedData().vidGrabber.setVerbose(true);
     
     //initialize parameters
-    fogDensity = 5.0f;
+    fogDensity = 3.0f;
     
 	mouseX = 0;
 	mouseY = 0;
+    sender.setup(SENDIP, SENDPORT);
+
 }
 
 void Scene2::stateEnter(){
     getSharedData().vidGrabber.setDeviceID(0);
 	getSharedData().vidGrabber.setDesiredFrameRate(60);
 	getSharedData().vidGrabber.initGrabber(camWidth,camHeight);
+    
+    ofResetElapsedTimeCounter();
+    kosuri = getSharedData().kosuri;
 }
 
 void Scene2::stateExit(){
@@ -103,7 +108,11 @@ void Scene2::stateExit(){
 
 void Scene2::update(){
     //人がいなくなったら、0に戻る処理も必要
-    printf("SharedData x0:%d, y0:%d, scene:%d\n", getSharedData().fingerPosX[0], getSharedData().fingerPosY[0],getSharedData().scene);
+    if(ofGetElapsedTimef() < 1.5f){
+        kosuri = getSharedData().kosuri;
+//        printf("kosuri:%d\n",kosuri);
+    }
+//    printf("SharedData x0:%d, y0:%d, scene:%d\n", getSharedData().palmPosX[0], getSharedData().palmPosY[0],getSharedData().scene);
     palmPosX[0] = getSharedData().palmPosX[0];
     palmPosY[0] = getSharedData().palmPosY[0];
 
@@ -122,6 +131,15 @@ void Scene2::update(){
     //  Update
     getSharedData().vidGrabber.update();
     fluid.update();
+//    printf("kosuri_leap:%d\n", getSharedData().kosuri);
+    
+    if(getSharedData().kosuri > kosuri + 200){
+        ofxOscMessage sendReset;
+        sendReset.setAddress("/leap/sendReset");
+        sendReset.addIntArg(ofRandom(3,4));
+        sender.sendMessage(sendReset);
+        printf("sendReset\n");
+    }
 }
 
 
@@ -139,13 +157,11 @@ void Scene2::draw(){
     testImage[hoge].draw(getSharedData().palmPosX[0], getSharedData().palmPosY[0], testImage[0].getWidth(), testImage[0].getHeight());
     ofDisableAlphaBlending();
     
-    if(setGesture){
-        iFont_m.drawString("あらいぐまのポーズで", i1X, i1Y-80);
-        iFont_m.drawString("手をあらおう！", i2X, i2Y-40);
-
-        iFont_m.drawString("手のひらを合わせて", i3X, i3Y+40);
-        iFont_m.drawString("スリスリ", i4X, i4Y+80);
-    }
+    iFont_m.drawString("あらいぐまのポーズで", i1X, i1Y-80);
+    iFont_m.drawString("手をあらおう！", i2X, i2Y-40);
+    iFont_m.drawString("手のひらを合わせて", i3X, i3Y+40);
+    iFont_m.drawString("スリスリ", i4X, i4Y+80);
+    
 //    ofDrawBitmapString("Scene2 framerate:" + ofToString(ofGetFrameRate()), 30, ofGetHeight() - 30);
     
 }

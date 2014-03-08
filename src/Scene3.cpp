@@ -80,7 +80,7 @@ void Scene3::setup(){
     
     //
     //initialize parameters
-    fogDensity = 5.0f;
+    fogDensity = 3.0f;
     
 	mouseX = 0;
 	mouseY = 0;
@@ -98,7 +98,7 @@ void Scene3::stateExit(){
 
 void Scene3::update(){
     
-    printf("SharedData x0:%d, y0:%d, scene:%d\n", getSharedData().palmPosX[0], getSharedData().palmPosY[0],getSharedData().scene);
+//    printf("SharedData x0:%d, y0:%d, scene:%d\n", getSharedData().palmPosX[0], getSharedData().palmPosY[0],getSharedData().scene);
     palmPosX[0] = getSharedData().palmPosX[0];
     palmPosY[0] = getSharedData().palmPosY[0];
     

@@ -35,11 +35,10 @@ void testApp::setup(){
     onHuman = false;
     stateMachine.getSharedData().onHuman = onHuman;
     
-    BGMSound.loadSound("sound/test.wav");
-    BGMSound.setLoop(true);
-    BGMSound.setVolume(0.6);
-    BGMSound.play();
-    
+    stateMachine.getSharedData().BGMSound.loadSound("sound/BGM.mp3");
+    stateMachine.getSharedData().BGMSound.setLoop(true);
+    stateMachine.getSharedData().BGMSound.play();
+    stateMachine.getSharedData().BGMSound.setVolume(0.8);
     stateMachine.getSharedData().elapsedTime = elapsedTime;
 }
 
@@ -60,7 +59,7 @@ void testApp::update(){
             stateMachine.getSharedData().palmPosX[0] = mouseX;
             stateMachine.getSharedData().palmPosY[0] = mouseY;
 //            }
-            printf("palmX:%d palmY:%d\n",stateMachine.getSharedData().fingerPosX[0],stateMachine.getSharedData().fingerPosY[0]);
+//            printf("palmX:%d palmY:%d\n",stateMachine.getSharedData().palmPosX[0],stateMachine.getSharedData().palmPosY[0]);
 		}
         
 		//Scene from OSC
@@ -96,7 +95,7 @@ void testApp::update(){
         
         else if (m.getAddress() == "/leap/kosuri"){
             stateMachine.getSharedData().kosuri = m.getArgAsInt32(0);
-//            printf("kosuri:%d", m.getArgAsInt32(0));
+            printf("kosuri:%d", m.getArgAsInt32(0));
         }
 	}
 }

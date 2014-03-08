@@ -23,6 +23,7 @@ class SharedData{
     int kosuri;
     
     ofVideoGrabber vidGrabber;
+    ofSoundPlayer BGMSound;
     
     float elapsedTime;
     

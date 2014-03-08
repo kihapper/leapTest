@@ -40,7 +40,9 @@ class Scene4 : public itg::ofxState<SharedData>{
     float fingerPosX[15];
     float fingerPosY[15];
     
-    float palmPos[5];
+    float palmPosX[5];
+    float palmPosY[5];
+
     
     //流体のパラメータ
     ofxFluid fluid;

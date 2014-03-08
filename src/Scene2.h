@@ -77,7 +77,9 @@ class Scene2 : public itg::ofxState<SharedData>{
     int hoge;
     
     Boolean setGesture;
-    
     string getName();
+    
+    ofxOscSender sender;
+    int kosuri;
 
 };
